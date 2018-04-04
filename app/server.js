@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
     app.use('/style.bundle.css', express.static('style.bundle.css'));
 }
 
-app.use('static', express.static('static'));
+app.use('/static', express.static('static'));
 
 app.use(require('./server/helpers/reactHelper').reactMiddleware);
 

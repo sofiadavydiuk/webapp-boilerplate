@@ -5,6 +5,7 @@ import { AppContainer } from 'react-hot-loader'
 import App from "./client/app";
 import './client/style/style.less';
 
+
 const initialData = JSON.parse(document.getElementById('initialData').innerHTML);
 
 const render = () => {

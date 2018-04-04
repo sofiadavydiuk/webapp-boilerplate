@@ -5,12 +5,12 @@
  "main": "./server.js",
  "author": "Fun Maker",
  "scripts": {
-   "start": "cross-env NODE_ENV=development nodemon --exec babel-node --presets react,env --plugins transform-object-rest-spread server.js",
-   "start:prod": "cd dist && cross-env NODE_ENV=production node server.bundle.js",
-   "build:prod": "npm run build:prod-webpack && npm run build:prod-static && npm run build:prod-package",
-   "build:prod-webpack": "cross-env NODE_ENV=production webpack --verbose --colors --display-error-details --config webpack.config.js",
-   "build:prod-static": "cp -r static dist/",
-   "build:prod-package": "node ./prepareDist.js"
+  "start": "cross-env NODE_ENV=development nodemon --exec babel-node --presets react,env --plugins transform-object-rest-spread server.js",
+  "start:prod": "cd dist && cross-env NODE_ENV=production node server.bundle.js",
+  "build:prod": "npm run build:prod-webpack && npm run build:prod-static && npm run build:prod-package",
+  "build:prod-webpack": "cross-env NODE_ENV=production webpack --verbose --colors --display-error-details --config webpack.config.js",
+  "build:prod-static": "cp -r static dist/",
+  "build:prod-package": "node ./prepareDist.js"
  },
  "dependencies": {
   "axios": "^0.17.1",
@@ -24,7 +24,9 @@
   "react-dom": "^16.2.0",
   "react-router": "^4.1.1",
   "react-router-dom": "^4.2.2",
-  "webpack-node-externals": "^1.6.0"
+  "semantic-ui-react": "^0.79.0",
+  "webpack-node-externals": "^1.6.0",
+   "query-string": "latest"
  },
  "devDependencies": {
   "babel-cli": "^6.26.0",

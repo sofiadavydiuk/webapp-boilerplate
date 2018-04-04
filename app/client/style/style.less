@@ -1,13 +1,61 @@
 
-.indexPage {
-  border: 3px solid magenta;
-  padding: 2em;
-  display: inline-block;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(0);
-  animation:spin 4s linear infinite;
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: baseline;
+  text-align: center;
+
+  & > * {
+    width: 290px;
+  }
 }
 
-// @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  & > .footer,
+  & > .nav {
+    border-radius: 0 !important;
+
+    .extraPadding {
+      flex: 1;
+    }
+    .extraInput * {
+      color: white;
+    }
+  }
+
+  & > .content {
+    position: relative;
+    flex: 1;
+    text-align: center;
+    padding-bottom: 6em;
+
+    .Pagination {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  .ui.pagination.menu .active.item {
+    background-color: magenta;
+  }
+}
+
+.Pagination {
+  margin: 2em 0;
+  display: inline-block;
+  white-space: nowrap;
+  & > * {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+  }
+}
