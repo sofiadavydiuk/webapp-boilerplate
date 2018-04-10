@@ -48,7 +48,7 @@ router.get('/products', (req, res) => {
     //     default:
     //         console.log('default');
     // }
-    console.log(req.query.sort.value);
+    // console.log(req.query.sort.value);
 
 
     console.log(req.query);

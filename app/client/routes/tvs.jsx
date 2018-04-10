@@ -61,7 +61,7 @@ export default class Tv extends React.Component {
                     <React.Fragment>
                         <Menu.Item className="extraPadding"/>
                         <Filters onChange={this.updateItems} />
-                    </React.Fragment>
+                     </React.Fragment>
                 }/>
                 <ItemCollection  ItemComponent={Tvs}
                                  items={this.state.tvs}

@@ -2,8 +2,6 @@ import React from 'react'
 import {fetchInitialData, getInitialData} from "../helpers/initialData";
 import {Card, Image, Input, Menu} from "semantic-ui-react";
 import Nav from "../components/Nav";
-import qs from "query-string";
-import isNode from 'detect-node';
 import requestJSON from "../helpers/requestJSON";
 import ItemCollection from "../components/ItemCollection";
 import Filters from "../components/Filters";
