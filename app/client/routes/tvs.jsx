@@ -2,6 +2,9 @@ import React from 'react'
 import {fetchInitialData, getInitialData} from "../helpers/initialData";
 import {Card, Icon, Image, Input, Menu} from "semantic-ui-react";
 import Nav from "../components/Nav";
+import ItemCollection from "../components/ItemCollection";
+import requestJSON from "../helpers/requestJSON";
+import Filters from "../components/Filters";
 
 
 const Tvs = ({data}) => (
@@ -34,6 +37,14 @@ export default class Tv extends React.Component {
             filter: "",
             ...getInitialData(),
         };
+
+        this.updateItems = this.updateItems.bind(this);
+    }
+
+    async updateItems() {
+        this.setState({
+            ...(await requestJSON()),
+        });
     }
 
     async componentDidMount() {
@@ -44,46 +55,20 @@ export default class Tv extends React.Component {
     }
 
     render() {
-        let tvs = this.state.tvs;
-
-        if (this.state.sort === "price") {
-            tvs = tvs.sort((a, b) => a.price - b.price);
-        }
-
-        if (this.state.filter) {
-            tvs = tvs.filter((tv) => tv.name.toLowerCase().includes(this.state.filter.toLowerCase()));
-        }
-
         return (
             <React.Fragment>
                 <Nav extra={
                     <React.Fragment>
-                        <Menu.Item className="extraPadding" />
-                        <Menu.Item className="extraInput">
-                            <Input placeholder='Filter...'
-                                   onChange={(ev, {value}) => this.setState({filter: value})}
-                                   value={this.state.filter}
-                                   transparent
-                                   icon="search"/>
-                        </Menu.Item>
+                        <Menu.Item className="extraPadding"/>
+                        <Filters onChange={this.updateItems} />
                     </React.Fragment>
                 }/>
-                <div className="content">
-                    <div className="cardList">
-                        {tvs.map(tv => <Tvs data={tv} key={tv.id}/>)}
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                    </div>
-                </div>
+                <ItemCollection  ItemComponent={Tvs}
+                                 items={this.state.tvs}
+                                 pageCount={this.state.pageCount}
+                                 onPageChange={this.updateItems} />
             </React.Fragment>
         )
     }
 
 }
-

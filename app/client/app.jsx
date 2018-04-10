@@ -10,6 +10,7 @@ import Test from "./routes/test";
 import Test2 from "./routes/test2";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
+import Products from "./routes/products";
 
 class App extends React.Component {
 	constructor({initialData}) {
@@ -37,6 +38,7 @@ class App extends React.Component {
 			<React.Fragment>
 				<Switch>
 					<Route path="/" exact component={Index}/>
+					<Route path="/products" exact component={Products}/>
 					<Route path="/smartphones" exact component={Smartphones}/>
 					<Route path="/tablets" exact component={Tablets}/>
 					<Route path="/tvs" exact component={Tvs}/>

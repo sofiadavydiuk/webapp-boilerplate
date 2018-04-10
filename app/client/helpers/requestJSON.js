@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const CancelToken = axios.CancelToken;
 
-export default async function requestJSON({method, href, host, pathname, search, cancelCb}) {
+export default async function requestJSON({method, href, host, pathname, search, cancelCb} = {}) {
     if(isNode) return new Promise(() => {});
 
     host = host || location.host;
@@ -15,7 +15,7 @@ export default async function requestJSON({method, href, host, pathname, search,
     const response = await axios({
         method: method.toLowerCase(),
         url: href,
-        cancelToken: new CancelToken(cancelCb),
+        cancelToken: cancelCb ? new CancelToken(cancelCb) : undefined,
     });
 
     return response.data;

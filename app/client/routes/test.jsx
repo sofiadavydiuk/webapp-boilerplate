@@ -7,9 +7,13 @@ let foo0 = (props) => {
     let kek = props.kek;
 };
 
-let foo1 = (props) => {
-    let {kek} = props;
-};
+// let foo1 = (props) => {
+//     let variable = "123";
+//     let {kek: variable} = {kek: "123"};
+//
+//     let {kek} = {kek: "123"};
+//     let {kek} = props;
+// };
 
 let foo2 = ({kek}) => {
 

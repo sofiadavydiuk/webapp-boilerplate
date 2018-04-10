@@ -10,6 +10,10 @@ export default function Nav({extra}) {
                 Home
             </Menu.Item>
 
+            <Menu.Item as={NavLink} to="/products">
+                Products
+            </Menu.Item>
+
             <Menu.Item as={NavLink} to="/smartphones">
                 Smartphones
             </Menu.Item>

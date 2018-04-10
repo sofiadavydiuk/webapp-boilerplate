@@ -2,13 +2,16 @@ import React from 'react'
 import {fetchInitialData, getInitialData} from "../helpers/initialData";
 import {Card, Icon, Image, Input, Menu} from "semantic-ui-react";
 import Nav from "../components/Nav";
+import ItemCollection from "../components/ItemCollection";
+import requestJSON from "../helpers/requestJSON";
+import Filters from "../components/Filters";
 
 
 const Tablet = ({data}) => (
     <Card>
         <Image src={data.logo}/>
         <Card.Content>
-            <Card.Header>
+            <Card.Header center>
                 {data.name}
             </Card.Header>
             <Card.Meta>
@@ -17,7 +20,7 @@ const Tablet = ({data}) => (
         </span>
             </Card.Meta>
             <Card.Description>
-               This is the best product ever.
+                {data.description}
             </Card.Description>
         </Card.Content>
     </Card>
@@ -33,6 +36,14 @@ export default class Tablets extends React.Component {
             filter: "",
             ...getInitialData(),
         };
+
+        this.updateItems = this.updateItems.bind(this);
+    }
+
+    async updateItems() {
+        this.setState({
+            ...(await requestJSON()),
+        });
     }
 
     async componentDidMount() {
@@ -42,44 +53,20 @@ export default class Tablets extends React.Component {
     }
 
     render() {
-        let tablets = this.state.tablets;
-
-        if (this.state.sort === "price") {
-            tablets = tablets.sort((a, b) => a.price - b.price);
-        }
-
-        if (this.state.filter) {
-            tablets = tablets.filter((tablet) => tablet.name.toLowerCase().includes(this.state.filter.toLowerCase()));
-        }
-
         return (
             <React.Fragment>
                 <Nav extra={
                     <React.Fragment>
-                        <Menu.Item className="extraPadding" />
-                        <Menu.Item className="extraInput">
-                            <Input placeholder='Filter...'
-                                   onChange={(ev, {value}) => this.setState({filter: value})}
-                                   value={this.state.filter}
-                                   transparent
-                                   icon="search"/>
-                        </Menu.Item>
+                        <Menu.Item className="extraPadding"/>
+                        <Filters onChange={this.updateItems} />
                     </React.Fragment>
                 }/>
-                <div className="content">
-                    <div className="cardList">
-                        {tablets.map(tablet => <Tablet data={tablet} key={tablet.id}/>)}
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                        <div className="placeholder"/>
-                    </div>
-                </div>
+                <ItemCollection  ItemComponent={Tablet}
+                                 items={this.state.tablets}
+                                 pageCount={this.state.pageCount}
+                                 onPageChange={this.updateItems} />
             </React.Fragment>
         )
     }
+
 }

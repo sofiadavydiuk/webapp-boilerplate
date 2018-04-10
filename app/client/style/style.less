@@ -26,20 +26,13 @@
     .extraInput * {
       color: white;
     }
+    .Dropdown > .text {
+      color: white !important;
+    }
   }
 
-  & > .content {
-    position: relative;
+  & > .ItemCollection, & > .content {
     flex: 1;
-    text-align: center;
-    padding-bottom: 6em;
-
-    .Pagination {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translate(-50%, 0);
-    }
   }
 
   .ui.pagination.menu .active.item {
@@ -53,9 +46,25 @@
   white-space: nowrap;
   & > * {
     display: inline-block;
-    width: 2em;
-    height: 2em;
+    width: 36px;
+    height: 36px;
     line-height: 2em;
     text-align: center;
+    cursor: pointer;
+    user-select: none;
+    font-size: 130%;
+  }
+}
+
+.ItemCollection {
+  position: relative;
+  text-align: center;
+  padding-bottom: ~"calc( 4em + 36px )";
+
+  .Pagination {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
 }

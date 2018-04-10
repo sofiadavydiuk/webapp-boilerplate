@@ -2,11 +2,13 @@ import React from 'react'
 import {fetchInitialData, getInitialData} from "../helpers/initialData";
 import {Card, Image, Input, Menu} from "semantic-ui-react";
 import Nav from "../components/Nav";
+import qs from "query-string";
+import isNode from 'detect-node';
 import requestJSON from "../helpers/requestJSON";
 import ItemCollection from "../components/ItemCollection";
 import Filters from "../components/Filters";
 
-const SmartPhone = ({data}) => (
+const Product = ({data}) => (
     <Card>
         <Image src={data.logo}/>
         <Card.Content>
@@ -26,12 +28,12 @@ const SmartPhone = ({data}) => (
 );
 
 
-export default class Smartphones extends React.Component {
+export default class Products extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            smartphones: [],
+            products: [],
             sort: "price",
             filter: '',
             pageCount: 0,
@@ -59,13 +61,13 @@ export default class Smartphones extends React.Component {
                 <Nav extra={
                     <React.Fragment>
                         <Menu.Item className="extraPadding"/>
-                        <Filters onChange={this.updateItems} />
+                        <Filters onChange={this.updateItems}/>
                     </React.Fragment>
                 }/>
-                <ItemCollection  ItemComponent={SmartPhone}
-                                 items={this.state.smartphones}
+                <ItemCollection  ItemComponent={Product}
+                                 items={this.state.products}
                                  pageCount={this.state.pageCount}
-                                 onPageChange={this.updateItems} />
+                                 onPageChange={this.updateItems}/>
             </React.Fragment>
         )
     }
