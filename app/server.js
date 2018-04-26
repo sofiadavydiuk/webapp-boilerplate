@@ -3,6 +3,7 @@ import express from "express";
 import expressHandlebars from 'express-handlebars';
 import bodyParser from 'body-parser';
 import * as webpackHelper from "./server/helpers/webpackHelper";
+import {HTTPError} from "./server/helpers/utils";
 
 const app = express();
 const hbs = expressHandlebars.create({});
@@ -24,6 +25,27 @@ app.use('/static', express.static('static'));
 app.use(require('./server/helpers/reactHelper').reactMiddleware);
 
 app.use('/', require("./server/routes/index").router);
+
+app.use((req, res, next) => {
+    next(HTTPError(404, "Not Found"));
+});
+
+app.use((err, req, res, next) => {
+    const initialData = {};
+
+    console.error(err);
+
+    const status = err.status || 500;
+
+    initialData._error = {
+        status,
+        message: err.message || "Internal Server Error",
+        stack: err.stack,
+    };
+
+    res.status(status);
+    res.react(initialData);
+});
 
 let port = JSON.parse(fs.readFileSync("package.json")).port || 3000;
 if(process.env.DOCKERIZED) port = 80;

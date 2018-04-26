@@ -6,6 +6,7 @@ import {Menu} from 'semantic-ui-react'
 export default function Nav({extra}) {
     return (
         <Menu inverted className="nav">
+
             <Menu.Item as={NavLink} to="/" exact>
                 Home
             </Menu.Item>
@@ -27,6 +28,7 @@ export default function Nav({extra}) {
             </Menu.Item>
 
             {extra}
+
         </Menu>
     );
 }

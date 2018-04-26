@@ -1,6 +1,7 @@
-import React from 'react'
+import
+    React from 'react'
 import {fetchInitialData, getInitialData} from "../helpers/initialData";
-import {Card, Image, Input, Menu} from "semantic-ui-react";
+import {Card, Image, Menu} from "semantic-ui-react";
 import Nav from "../components/Nav";
 import requestJSON from "../helpers/requestJSON";
 import ItemCollection from "../components/ItemCollection";

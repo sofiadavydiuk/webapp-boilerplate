@@ -1,8 +1,16 @@
 import os from 'os';
 import data from './../data/json/data'
+import {HTTPError} from "../helpers/utils";
 export const router = require('express-promise-router')();
 
 const PAGESIZE = 5;
+
+let datas = {
+    products: [].concat(data.smartphones, data.tvs, data.tablets),
+    smartphones: data.smartphones,
+    tablets: data.tablets,
+    tvs: data.tvs,
+};
 
 router.get('/', (req, res) => {
     const initialData = {};
@@ -10,9 +18,15 @@ router.get('/', (req, res) => {
     res.react(initialData);
 });
 
-router.get('/products', (req, res) => {
+router.get('/:category', (req, res, next) => {
     const initialData = {};
-    let products = [].concat(data.smartphones, data.tvs, data.tablets);
+
+    let products = datas[req.params.category];
+
+    if(products === undefined) {
+        return next();
+    }
+
 
     if (typeof req.query.filter === "string" ){
         req.query.filter = [req.query.filter];
@@ -22,68 +36,13 @@ router.get('/products', (req, res) => {
         products = products.filter(product => req.query.filter.includes(product.producent));
     }
 
-    // if (req.query.sort){
-    //     switch (req.query.sort){
-    //         case ;
-    //
-    //     }
-    //
-    //
-    // }
-
-    // var foo = 0;
-    // switch (foo) {
-    //     case -1:
-    //         console.log('negative 1');
-    //         break;
-    //     case 0: // foo is 0 so criteria met here so this block will run
-    //         console.log(0);
-    //     // NOTE: the forgotten break would have been here
-    //     case 1: // no break statement in 'case 0:' so this case will run as well
-    //         console.log(1);
-    //         break; // it encounters this break so will not continue into 'case 2:'
-    //     case 2:
-    //         console.log(2);
-    //         break;
-    //     default:
-    //         console.log('default');
-    // }
-    // console.log(req.query.sort.value);
-
-
-    console.log(req.query);
-
     const page = parseInt(req.query.page) || 0;
     initialData.products = products.slice(page * PAGESIZE, page * PAGESIZE + PAGESIZE);
     initialData.pageCount = Math.ceil(products.length/PAGESIZE);
     res.react(initialData);
 });
 
-router.get('/smartphones', (req, res) => {
-    const initialData = {};
-    const page = parseInt(req.query.page) || 0;
-    initialData.smartphones = data.smartphones.slice(page * PAGESIZE, page * PAGESIZE + PAGESIZE);
-    initialData.pageCount = Math.ceil(data.smartphones.length/PAGESIZE);
-    res.react(initialData);
-});
-
-router.get('/tablets', (req, res) => {
-    const initialData = {};
-    const page = parseInt(req.query.page) || 0;
-    initialData.tablets = data.tablets.slice(page * PAGESIZE, page * PAGESIZE + PAGESIZE);
-    initialData.pageCount = Math.ceil(data.tablets.length/PAGESIZE);
-    res.react(initialData);
-});
-
-router.get('/tvs', (req, res) => {
-    const initialData = {};
-    const page = parseInt(req.query.page) || 0;
-    initialData.tvs = data.tvs.slice(page * PAGESIZE, page * PAGESIZE + PAGESIZE);
-    initialData.pageCount = Math.ceil(data.tvs.length/PAGESIZE);
-    res.react(initialData);
-});
-
-router.get(['/test', '/test2'], (req, res) => {
+router.get(['/test', '/test2', '/test3'], (req, res) => {
     const initialData = {};
     res.react(initialData);
 });
